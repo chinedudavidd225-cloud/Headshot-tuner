@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0,user-scalable=n">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#00ff66">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+  
+<title>HEADSHOT TUNER</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    color:white;
+    background:
+    radial-gradient(circle at 15% 15%,#063d2b,transparent 30%),
+    radial-gradient(circle at 85% 25%,#082f3d,transparent 30%),
+    linear-gradient(145deg,#020505,#07100d,#020607);
+    overflow-x:hidden;
+}
+
+/* futuristic grid */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    linear-gradient(#00ff9d08 1px,transparent 1px),
+    linear-gradient(90deg,#00ff9d08 1px,transparent 1px);
+    background-size:30px 30px;
+    pointer-events:none;
+}
+
+.app{
+    width:100%;
+    max-width:600px;
+    margin:auto;
+    padding:18px;
+}
+
+/* HEADER */
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.logo{
+    font-size:20px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.logo span{
+    color:#00ff9d;
+}
+
+.online{
+    font-size:10px;
+    padding:7px 10px;
+    border-radius:20px;
+    border:1px solid #00ff9d55;
+    color:#00ff9d;
+    background:#00ff9d0c;
+}
+
+/* HERO */
+
+.hero{
+    padding:22px;
+    border-radius:22px;
+    border:1px solid #00ff9d30;
+    background:#07120fdd;
+    box-shadow:0 0 35px #00ff9d0b;
+    margin-bottom:14px;
+}
+
+.hero h1{
+    font-size:30px;
+    margin-bottom:7px;
+}
+
+.hero h1 span{
+    color:#00ff9d;
+}
+
+.hero p{
+    color:#81988e;
+    font-size:13px;
+    line-height:1.5;
+}
+
+/* CARDS */
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.card{
+    background:#08110fdd;
+    border:1px solid #ffffff12;
+    border-radius:16px;
+    padding:14px;
+}
+
+.label{
+    font-size:10px;
+    color:#6f887d;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    margin-bottom:7px;
+}
+
+input,
+select{
+    width:100%;
+    height:44px;
+    border-radius:10px;
+    border:1px solid #ffffff15;
+    background:#030807;
+    color:white;
+    padding:0 10px;
+    font-size:15px;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#00ff9d;
+}
+
+/* BUTTON */
+
+.main-button{
+    width:100%;
+    height:52px;
+    margin-top:14px;
+    border:none;
+    border-radius:13px;
+    background:linear-gradient(100deg,#00ff9d,#4dffd0);
+    color:#001a0e;
+    font-weight:900;
+    font-size:15px;
+    box-shadow:0 0 25px #00ff9d22;
+}
+
+.main-button:active{
+    transform:scale(.98);
+}
+
+/* SENSITIVITY */
+
+.section-title{
+    margin:18px 0 9px;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.sensitivity{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+}
+
+.sensitivity-card{
+    padding:14px;
+    border-radius:15px;
+    background:#07100ddd;
+    border:1px solid #ffffff10;
+}
+
+.sensitivity-card small{
+    color:#71887e;
+    font-size:10px;
+}
+
+.sensitivity-card strong{
+    display:block;
+    margin-top:5px;
+    font-size:27px;
+    color:#00ff9d;
+}
+
+/* RESULT */
+
+.result{
+    margin-top:14px;
+    padding:16px;
+    border-radius:18px;
+    border:1px solid #00ff9d35;
+    background:#061a12ee;
+}
+
+.result-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:12px;
+}
+
+.result-title h2{
+    font-size:15px;
+}
+
+.ai{
+    color:#00ff9d;
+    font-size:9px;
+}
+
+/* PROFILE */
+
+.profile{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.profile-box{
+    padding:10px;
+    border-radius:11px;
+    background:#050a08;
+    border:1px solid #ffffff0d;
+}
+
+.profile-box small{
+    color:#62766e;
+    font-size:9px;
+}
+
+.profile-box strong{
+    display:block;
+    margin-top:5px;
+    font-size:19px;
+}
+
+/* SCORE */
+
+.score{
+    margin-top:14px;
+    padding:15px;
+    border-radius:14px;
+    background:#050b09;
+}
+
+.score-header{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:8px;
+}
+
+.score-number{
+    color:#00ff9d;
+    font-weight:bold;
+}
+
+.bar{
+    width:100%;
+    height:8px;
+    border-radius:20px;
+    background:#12201b;
+    overflow:hidden;
+}
+
+.bar-fill{
+    width:0%;
+    height:100%;
+    background:#00ff9d;
+    transition:.5s;
+}
+
+/* TEST */
+
+.test{
+    margin-top:14px;
+    padding:15px;
+    border-radius:16px;
+    border:1px solid #ffffff10;
+    background:#07100ddd;
+}
+
+.test button{
+    width:100%;
+    margin-top:10px;
+    height:44px;
+    border-radius:10px;
+    border:1px solid #00ff9d55;
+    background:#00ff9d0c;
+    color:#00ff9d;
+    font-weight:bold;
+}
+
+.hint{
+    margin-top:10px;
+    color:#71867d;
+    font-size:11px;
+    line-height:1.5;
+}
+
+footer{
+    text-align:center;
+    color:#40544c;
+    font-size:10px;
+    margin:20px 0 5px;
+}
+
+@media(max-width:370px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .profile{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="logo">
+            HEADSHOT <span>TUNER</span>
+        </div>
+
+        <div class="online">
+            ● LOCAL MODE
+        </div>
+
+    </div>
+
+
+    <!-- HERO -->
+
+    <div class="hero">
+
+        <h1>
+            RED AIM <span>LAB</span>
+        </h1>
+
+        <p>
+            Create a personalized Free Fire headshot
+            sensitivity profile using your device,
+            DPI, button size and play style.
+        </p>
+
+    </div>
+
+
+    <!-- DEVICE SETTINGS -->
+
+    <div class="grid">
+
+        <div class="card">
+
+            <div class="label">
+                Phone
+            </div>
+
+            <input
+                id="phone"
+                value="itel P40"
+            >
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="label">
+                DPI
+            </div>
+
+            <input
+                id="dpi"
+                type="number"
+                min="240"
+                max="800"
+                value="420"
+            >
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="label">
+                Fire Button %
+            </div>
+
+            <input
+                id="button"
+                type="number"
+                min="20"
+                max="100"
+                value="54"
+            >
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="label">
+                Fingers
+            </div>
+
+            <select id="fingers">
+
+                <option>2 Finger</option>
+
+                <option selected>
+                    3 Finger
+                </option>
+
+                <option>
+                    4 Finger
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- PLAY STYLE -->
+
+    <div class="section-title">
+        TUNING PROFILE
+    </div>
+
+
+    <div class="grid">
+
+        <div class="card">
+
+            <div class="label">
+                Play Style
+            </div>
+
+            <select id="style">
+
+                <option value="rush">
+                    Fast Rusher
+                </option>
+
+                <option value="balanced">
+                    Balanced
+                </option>
+
+                <option value="stable">
+                    Stable Aim
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="label">
+                Aim Problem
+            </div>
+
+            <select id="problem">
+
+                <option value="chest">
+                    Stays at Chest
+                </option>
+
+                <option value="over">
+                    Goes Above Head
+                </option>
+
+                <option value="shake">
+                    Shaky Aim
+                </option>
+
+                <option value="slow">
+                    Drag Too Slow
+                </option>
+
+            </select>
+
+        </div>
+
+    </div>
+
+
+    <!-- GENERATE -->
+
+    <button
+        class="main-button"
+        onclick="generateProfile()"
+    >
+
+        ⚡ GENERATE HEADSHOT PROFILE
+
+    </button>
+
+
+    <!-- SENSITIVITY -->
+
+    <div class="section-title">
+        RECOMMENDED SENSITIVITY
+    </div>
+
+
+    <div class="sensitivity">
+
+
+        <div class="sensitivity-card">
+
+            <small>
+                GENERAL
+            </small>
+
+            <strong id="general">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="sensitivity-card">
+
+            <small>
+                RED DOT
+            </small>
+
+            <strong id="red">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="sensitivity-card">
+
+            <small>
+                2× SCOPE
+            </small>
+
+            <strong id="two">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="sensitivity-card">
+
+            <small>
+                4× SCOPE
+            </small>
+
+            <strong id="four">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="sensitivity-card">
+
+            <small>
+                AWM
+            </small>
+
+            <strong id="awm">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="sensitivity-card">
+
+            <small>
+                DPI
+            </small>
+
+            <strong id="resultDpi">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="sensitivity-card">
+
+            <small>
+                BUTTON SIZE
+            </small>
+
+            <strong id="resultButton">
+                —
+            </strong>
+
+        </div>
+
+
+        <div class="sensitivity-card">
+
+            <small>
+                DRAG
+            </small>
+
+            <strong id="drag">
+                —
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- SCORE -->
+
+    <div class="result">
+
+        <div class="result-title">
+
+            <h2>
+                HEADSHOT POTENTIAL
+            </h2>
+
+            <div class="ai">
+                TUNING ENGINE
+            </div>
+
+        </div>
+
+
+        <div class="score">
+
+            <div class="score-header">
+
+                <span>
+                    Stability
+                </span>
+
+                <span
+                    class="score-number"
+                    id="score"
+                >
+                    0%
+                </span>
+
+            </div>
+
+
+            <div class="bar">
+
+                <div
+                    class="bar-fill"
+                    id="bar"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="hint" id="message">
+
+            Generate a profile to begin.
+
+        </div>
+
+    </div>
+
+
+    <!-- TEST MODE -->
+
+    <div class="test">
+
+        <div class="section-title">
+            🧪 TRAINING TEST
+        </div>
+
+        <p class="hint">
+
+            Test the generated settings in Free Fire
+            Training Mode. If the crosshair stays
+            around the chest, increase General slightly.
+            If it flies over the head, decrease it.
+
+        </p>
+
+
+        <button
+            onclick="nextAdjustment()"
+        >
+
+            NEXT MICRO ADJUSTMENT
+
+        </button>
+
+        <p
+            class="hint"
+            id="adjustment"
+        >
+            No adjustment selected yet.
+
+        </p>
+
+    </div>
+
+
+    <footer>
+
+        HEADSHOT TUNER • v1.0<br>
+        Local sensitivity calculator
+
+    </footer>
+
+</div>
+
+
+<script>
+
+
+function clamp(
+    value,
+    min,
+    max
+){
+
+    return Math.max(
+        min,
+        Math.min(max,value)
+    );
+
+}
+
+
+function generateProfile(){
+
+    let dpi =
+        Number(
+            document.getElementById("dpi").value
+        ) || 420;
+
+
+    let button =
+        Number(
+            document.getElementById("button").value
+        ) || 54;
+
+
+    dpi = clamp(
+        dpi,
+        240,
+        800
+    );
+
+
+    button = clamp(
+        button,
+        20,
+        100
+    );
+
+
+    let style =
+        document.getElementById("style").value;
+
+
+    let problem =
+        document.getElementById("problem").value;
+
+
+    let fingers =
+        document.getElementById("fingers").value;
+
+
+    /*
+       BASE SENSITIVITY
+       0–200 SCALE
+    */
+
+    let general = 174;
+
+
+    /*
+       PLAY STYLE
+    */
+
+    if(style === "rush"){
+        general += 8;
+    }
+
+
+    if(style === "stable"){
+        general -= 7;
+    }
+
+
+    /*
+       FINGER SETUP
+    */
+
+    if(fingers === "2 Finger"){
+        general -= 3;
+    }
+
+
+    if(fingers === "4 Finger"){
+        general += 2;
+    }
+
+
+    /*
+       AIM PROBLEM
+    */
+
+    if(problem === "chest"){
+        general += 10;
+    }
+
+
+    if(problem === "over"){
+        general -= 11;
+    }
+
+
+    if(problem === "shake"){
+        general -= 9;
+    }
+
+
+    if(problem === "slow"){
+        general += 5;
+    }
+
+
+    /*
+       DPI EFFECT
+    */
+
+    general += clamp(
+        (dpi - 420) / 35,
+        -8,
+        8
+    );
+
+
+    general = clamp(
+        Math.round(general),
+        100,
+        200
+    );
+
+
+    /*
+       OTHER SENSITIVITIES
+    */
+
+    let red =
+        clamp(
+            general - 5,
+            90,
+            200
+        );
+
+
+    let two =
+        clamp(
+            general - 13,
+            80,
+            200
+        );
+
+
+    let four =
+        clamp(
+            general - 25,
+            70,
+            200
+        );
+
+
+    let awm =
+        clamp(
+            general - 38,
+            60,
+            180
+        );
+
+
+    /*
+       DPI
+    */
+
+    let newDpi = dpi;
+
+
+    if(problem === "chest"){
+        newDpi =
+            clamp(
+                dpi + 10,
+                300,
+                650
+            );
+    }
+
+
+    if(problem === "over"){
+        newDpi =
+            clamp(
+                dpi - 10,
+                300,
+                650
+            );
+    }
+
+
+    if(problem === "shake"){
+        newDpi =
+            clamp(
+                dpi - 15,
+                300,
+                650
+            );
+    }
+
+
+    /*
+       BUTTON SIZE
+    */
+
+    let newButton = button;
+
+
+    if(problem === "chest"){
+        newButton =
+            clamp(
+                button - 2,
+                38,
+                70
+            );
+    }
+
+
+    if(problem === "over"){
+        newButton =
+            clamp(
+                button + 2,
+                38,
+                70
+            );
+    }
+
+
+    if(problem === "shake"){
+        newButton =
+            clamp(
+                button + 3,
+                38,
+                70
+            );
+    }
+
+
+    /*
+       DISPLAY
+    */
+
+    document.getElementById("general")
+        .textContent = general;
+
+
+    document.getElementById("red")
+        .textContent = red;
+
+
+    document.getElementById("two")
+        .textContent = two;
+
+
+    document.getElementById("four")
+        .textContent = four;
+
+
+    document.getElementById("awm")
+        .textContent = awm;
+
+
+    document.getElementById("resultDpi")
+        .textContent = newDpi;
+
+
+    document.getElementById("resultButton")
+        .textContent = newButton + "%";
+
+
+    /*
+       DRAG STYLE
+    */
+
+    let drag = "MEDIUM ↑";
+
+
+    if(problem === "chest"){
+        drag = "FAST ↑";
+    }
+
+
+    if(problem === "over"){
+        drag = "SHORT ↑";
+    }
+
+
+    if(problem === "shake"){
+        drag = "SMOOTH";
+    }
+
+
+    if(problem === "slow"){
+        drag = "FAST ↑";
+    }
+
+
+    document.getElementById("drag")
+        .textContent = drag;
+
+
+    /*
+       SCORE
+    */
+
+    let score = 75;
+
+
+    if(problem === "chest"){
+        score += 10;
+    }
+
+
+    if(problem === "shake"){
+        score -= 5;
+    }
+
+
+    if(problem === "over"){
+        score -= 4;
+    }
+
+
+    if(style === "rush"){
+        score += 4;
+    }
+
+
+    if(style === "stable"){
+        score += 3;
+    }
+
+
+    score = clamp(
+        score,
+        50,
+        98
+    );
+
+
+    document.getElementById("score")
+        .textContent = score + "%";
+
+
+    document.getElementById("bar")
+        .style.width = score + "%";
+
+
+    document.getElementById("message")
+        .textContent =
+        "Profile generated. Test it for 5–10 minutes in Training Mode. Change only ONE variable at a time.";
+
+
+    localStorage.setItem(
+        "headshotProfile",
+        JSON.stringify({
+
+            general,
+            red,
+            two,
+            four,
+            awm,
+            dpi:newDpi,
+            button:newButton
+
+        })
+    );
+
+}
+
+
+function nextAdjustment(){
+
+    let problem =
+        document.getElementById("problem").value;
+
+
+    let text = "";
+
+
+    if(problem === "chest"){
+
+        text =
+        "Try General +3 first. Keep DPI and Button Size unchanged.";
+
+    }
+
+
+    else if(problem === "over"){
+
+        text =
+        "Try General -3 first. Keep DPI and Button Size unchanged.";
+
+    }
+
+
+    else if(problem === "shake"){
+
+        text =
+        "Try General -2 and a smoother, shorter drag.";
+
+    }
+
+
+    else{
+
+        text =
+        "Try DPI +10 before changing sensitivity.";
+
+    }
+
+
+    document.getElementById("adjustment")
+        .textContent = text;
+
+}
+
+
+/*
+   LOAD SAVED PROFILE
+*/
+
+window.onload = function(){
+
+    let saved =
+        localStorage.getItem(
+            "headshotProfile"
+        );
+
+
+    if(!saved){
+        return;
+    }
+
+
+    try{
+
+        let p =
+            JSON.parse(saved);
+
+
+        document.getElementById("general")
+            .textContent = p.general;
+
+
+        document.getElementById("red")
+            .textContent = p.red;
+
+
+        document.getElementById("two")
+            .textContent = p.two;
+
+
+        document.getElementById("four")
+            .textContent = p.four;
+
+
+        document.getElementById("awm")
+            .textContent = p.awm;
+
+
+        document.getElementById("resultDpi")
+            .textContent = p.dpi;
+
+
+        document.getElementById("resultButton")
+            .textContent = p.button + "%";
+
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+    }
+
+};
+
+
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("service-worker.js")
+            .then(() => {
+                console.log("Headshot Tuner offline mode ready");
+            })
+            .catch(error => {
+                console.log("Service worker error:", error);
+            });
+    });
+}
+</script>
+
+</body>
+</html>

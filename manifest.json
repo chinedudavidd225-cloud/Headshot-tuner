@@ -1,0 +1,10 @@
+{
+  "name": "Headshot Tuner",
+  "short_name": "Headshot Tuner",
+  "description": "Free Fire sensitivity and headshot tuning assistant",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#050805",
+  "theme_color": "#00ff66",
+  "orientation": "portrait"
+}
